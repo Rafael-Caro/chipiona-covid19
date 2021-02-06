@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>COVID 19 Chipiona</title>
+        <script type="text/javascript" src="scripts/d3.js"></script>
+    		<style type="text/css">
+    			rect:hover {
+    				fill: Gold;
+    			}
+    		</style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            var padding_bottom = 20;
+            var padding_left = 40
+            var max_inci = 1200
+            var w = 700;
+            var h = w / 2;
+            var rect_w;
+            var dataset;
+            var poblacionChipiona = 19246;
+
+            var incidenciaChipiona = function(x) {
+                return x * 100000 / poblacionChipiona;
+            }
+
+            var rect_h = function(y) {
+                return (h - padding_bottom - padding_bottom/2) * incidenciaChipiona(y) / max_inci;
+            }
+
+            var parseTime = d3.timeParse("%d/%m/%y");
+            var formatTime = d3.timeFormat("%d/%m");
+
+            var rowConverter = function(d) {
+                return {
+                    fecha: parseTime(d.fecha),
+                    ch14: parseInt(d.ch14),
+                    ch7: parseInt(d.ch7),
+                    sa14: parseInt(d.sa14),
+                    sa7: parseInt(d.sa7),
+                    gr14: parseInt(d.gr14),
+                    gr7: parseInt(d.gr7),
+                };
+            }
+
+            d3.csv("covid19Chipiona.csv", rowConverter, function(data) {
+
+                console.log(data);
+
+                dataset = data;
+
+                rect_w = (w-padding_left) / dataset.length / 2;
+
+                xScale = d3.scaleTime()
+  							    .domain([
+      							    d3.min(dataset, function(d) { return d.fecha; }),
+      									d3.max(dataset, function(d) { return d.fecha; })
+    								])
+  							    .range([padding_left + rect_w/2, w - rect_w/2]);
+
+   				      yScale = d3.scaleLinear()
+   							    .domain([0, max_inci])
+   							    .range([h - padding_bottom, padding_bottom/2]);
+
+         				xAxis = d3.axisBottom()
+         						.scale(xScale)
+         						.ticks(8)
+         						.tickFormat(formatTime);
+
+                yAxis = d3.axisLeft()
+  								  .scale(yScale)
+  								  .ticks(10);
+
+                var svg = d3.select("body")
+          					.append("svg")
+          					.attr("width", w)
+          					.attr("height", h);
+
+                svg.selectAll("rect")
+          			    .data(dataset)
+          			    .enter()
+          			    .append("rect")
+         				    .attr("x", function(d) {
+         				   		  return xScale(d.fecha) - rect_w / 2;
+         				    })
+          			    .attr("y", function(d) {
+          			   		  return h - (rect_h(d.ch14)) - padding_bottom;
+          			    })
+          			    .attr("width", rect_w)
+          			    .attr("height", function(d) {
+          			   	  	return rect_h(d.ch14);
+          			    })
+          			    .attr("fill", "DeepSkyBlue")
+                    .append("title")
+                    .text(function(d) {
+                      var fecha = formatTime(d.fecha);
+                      var incidencia = incidenciaChipiona(d.ch14).toFixed(1)
+                      var casos = d.ch14;
+                      return fecha + "\n" + casos + "\n" + incidencia;
+                    })
+                    .style("stroke", "white")
+                    .style("stroke-width", "0.1px");
+                    // .on("mouseover", function(d) {
+                    //     svg.append("text")
+                    //         .attr("x", xPosition)
+                    //         .attr("y", yPosition)
+                    //         .text(d);
+                    // });
+
+      	   			svg.append("g")
+        	   				.attr("class", "axis")
+        	   				.attr("transform", "translate(0," + (h - padding_bottom) + ")")
+        	   				.call(xAxis);
+
+      	   			svg.append("g")
+        	   				.attr("class", "axis")
+        	   				.attr("transform", "translate(" + padding_left + ",0)")
+        	   				.call(yAxis);
+            });
+        </script>
+    </body>
+</html>
