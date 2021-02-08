@@ -1,0 +1,25 @@
+body {
+  font-family: sans-serif;
+}
+
+rect:hover {
+  fill: YellowGreen;
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#datos {
+  margin-bottom: 1em;
+}
+
+#fecha, #casos, #incidencia {
+   display: inline-block;
+   width: 10em;
+}

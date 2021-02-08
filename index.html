@@ -4,18 +4,15 @@
         <meta charset="utf-8">
         <title>COVID 19 Chipiona</title>
         <script type="text/javascript" src="scripts/d3.js"></script>
-    		<style type="text/css">
-    			rect:hover {
-    				fill: Gold;
-    			}
-    		</style>
+        <link href="style.css" type="text/css" rel="stylesheet">
     </head>
     <body>
+        <h2>COVID-19 en Chipiona: Incidencia acumulada a 14 días</h2>
         <script type="text/javascript">
             var padding_bottom = 20;
             var padding_left = 40
             var max_inci = 1200
-            var w = 700;
+            var w = 1000;
             var h = w / 2;
             var rect_w;
             var dataset;
@@ -92,21 +89,25 @@
           			   	  	return rect_h(d.ch14);
           			    })
           			    .attr("fill", "DeepSkyBlue")
-                    .append("title")
-                    .text(function(d) {
-                      var fecha = formatTime(d.fecha);
-                      var incidencia = incidenciaChipiona(d.ch14).toFixed(1)
-                      var casos = d.ch14;
-                      return fecha + "\n" + casos + "\n" + incidencia;
+                    .on("click", function(d) {
+                        d3.selectAll("rect")
+                            .attr("fill", "DeepSkyBlue")
+                        d3.select(this)
+                            .attr("fill", "Gold");
+                        var fecha = d3.timeFormat("%d/%m/%y")(d.fecha);
+                        d3.select("#fecha").html("<b>Fecha</b>: " + fecha);
+                        d3.select("#casos").html("<b>Casos</b>: " + d.ch14);
+                        var incidencia = incidenciaChipiona(d.ch14);
+                        d3.select("#incidencia").html("<b>Incidencia</b>: " + incidencia.toFixed(1));
                     })
+                    // .text(function(d) {
+                    //   var fecha = formatTime(d.fecha);
+                    //   var incidencia = incidenciaChipiona(d.ch14).toFixed(1)
+                    //   var casos = d.ch14;
+                    //   return fecha + "\n" + casos + "\n" + incidencia;
+                    // })
                     .style("stroke", "white")
                     .style("stroke-width", "0.1px");
-                    // .on("mouseover", function(d) {
-                    //     svg.append("text")
-                    //         .attr("x", xPosition)
-                    //         .attr("y", yPosition)
-                    //         .text(d);
-                    // });
 
       	   			svg.append("g")
         	   				.attr("class", "axis")
@@ -119,5 +120,17 @@
         	   				.call(yAxis);
             });
         </script>
+        <p>Pulsa una barra para conocer los datos concretos de ese día.</p>
+        <div id=datos>
+            <div id="fecha">
+                <b>Fecha</b>:
+            </div>
+            <div id="casos">
+                <b>Casos</b>:
+            </div>
+            <div id="incidencia">
+                <b>Incidencia</b>:
+            </div>
+        </div>
     </body>
 </html>
