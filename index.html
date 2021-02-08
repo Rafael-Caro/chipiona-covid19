@@ -144,9 +144,9 @@
           			   	  	return rect_h(d.ch14);
           			    })
           			    .attr("fill", "DeepSkyBlue")
-                    .on("mouseover", function(d) {
-                        // d3.selectAll(".bar")
-                        //     .attr("fill", "DeepSkyBlue")
+                    .on("click", function(d) {
+                        d3.selectAll(".bar")
+                            .attr("fill", "DeepSkyBlue")
                         d3.select(this)
                             .attr("fill", "Gold");
                         var fecha = d3.timeFormat("%d/%m/%y")(d.fecha);
@@ -154,10 +154,6 @@
                         d3.select("#casos").html("<b>Casos</b>: " + d.ch14);
                         var incidencia = incidenciaChipiona(d.ch14);
                         d3.select("#incidencia").html("<b>Incidencia</b>: " + incidencia.toFixed(1));
-                    })
-                    .on("mouseout", function(d) {
-                      d3.select(this)
-                          .attr("fill", "DeepSkyBlue")
                     })
                     .style("stroke", "white")
                     .style("stroke-width", "0.1px")
