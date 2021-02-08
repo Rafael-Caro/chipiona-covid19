@@ -1,6 +1,6 @@
-rect:hover {
+/* rect:hover {
   fill: YellowGreen;
-}
+} */
 
 h2 {
   margin-bottom: 0;
@@ -16,6 +16,14 @@ p {
 }
 
 #fecha, #casos, #incidencia {
-   display: inline-block;
-   width: 10em;
+  display: inline-block;
+  width: 10em;
+}
+
+svg {
+  margin-right: 10px;
+}
+
+.axis {
+  font-size: 12px;
 }
