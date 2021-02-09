@@ -15,17 +15,18 @@ p {
   margin-bottom: 0.5em;
 }
 
-#datos {
+.datos {
   margin-bottom: 1em;
 }
 
-#fecha, #casos, #incidencia {
+#ch_fecha, #ch_casos, #ch_incidencia, #sa_fecha, #sa_casos, #sa_incidencia {
   display: inline-block;
   width: 10em;
 }
 
 svg {
   margin-right: 40px;
+  margin-bottom: 40px;
 }
 
 .axis {
