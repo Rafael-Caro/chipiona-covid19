@@ -8,6 +8,19 @@
     </head>
     <body>
         <h2>COVID-19 en Chipiona: Incidencia acumulada a 14 días</h2>
+        <p>Pulsa una barra para conocer los datos concretos de ese día.</p>
+        <div id=datos>
+            <div id="fecha">
+                <b>Fecha</b>:
+            </div>
+            <div id="casos">
+                <b>Casos</b>:
+            </div>
+            <div id="incidencia">
+                <b>Incidencia</b>:
+            </div>
+        </div>
+        <svg id="chipiona"></svg>
         <script type="text/javascript">
             var padding_bottom = 20;
             var padding_left = 40
@@ -69,8 +82,7 @@
   								  .scale(yScale)
   								  .ticks(10);
 
-                var svg = d3.select("body")
-          					.append("svg")
+                var svg = d3.select("#chipiona")
           					.attr("width", w)
           					.attr("height", h);
 
@@ -170,17 +182,5 @@
         	   				.call(yAxis);
             });
         </script>
-        <p>Pulsa una barra para conocer los datos concretos de ese día.</p>
-        <div id=datos>
-            <div id="fecha">
-                <b>Fecha</b>:
-            </div>
-            <div id="casos">
-                <b>Casos</b>:
-            </div>
-            <div id="incidencia">
-                <b>Incidencia</b>:
-            </div>
-        </div>
     </body>
 </html>
