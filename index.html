@@ -106,6 +106,17 @@
   								  .scale(yScale)
   								  .ticks(10);
 
+                var initFecha = d3.timeFormat("%d/%m/%y")(data[data.length-1]["fecha"]);
+                d3.select("#ch_fecha").html("<b>Fecha</b>: " + initFecha);
+                d3.select("#ch_casos").html("<b>Casos</b>: " + data[data.length-1]["ch14"]);
+                var chIncidencia = incidenciaChipiona(data[data.length-1]["ch14"]);
+                d3.select("#ch_incidencia").html("<b>Incidencia</b>: " + chIncidencia.toFixed(1));
+
+                d3.select("#sa_fecha").html("<b>Fecha</b>: " + initFecha);
+                d3.select("#sa_casos").html("<b>Casos</b>: " + data[data.length-1]["sa14"]);
+                var saIncidencia = incidenciaSanlucar(data[data.length-1]["sa14"]);
+                d3.select("#sa_incidencia").html("<b>Incidencia</b>: " + saIncidencia.toFixed(1));
+
                 var svg = d3.select("#chipiona")
           					.attr("width", w)
           					.attr("height", h);
