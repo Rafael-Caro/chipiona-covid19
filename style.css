@@ -19,7 +19,7 @@ p {
   margin-bottom: 1em;
 }
 
-#ch_fecha, #ch_casos, #ch_incidencia, #sa_fecha, #sa_casos, #sa_incidencia {
+#ch_fecha, #ch_casos, #ch_incidencia, #sa_fecha, #sa_casos, #sa_incidencia, #gr_fecha, #gr_casos, #gr_incidencia {
   display: inline-block;
   width: 10em;
 }
