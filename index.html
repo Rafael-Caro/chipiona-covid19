@@ -452,7 +452,7 @@
                             .attr("fill", "Gold");
                         var fecha = d3.timeFormat("%d/%m/%y")(d.fecha);
                         d3.select("#gr_fecha").html("<b>Fecha</b>: " + fecha);
-                        d3.select("#gr_casos").html("<b>Casos</b>: " + d.sa14);
+                        d3.select("#gr_casos").html("<b>Casos</b>: " + d.gr14);
                         var incidencia = incidenciaGranada(d.gr14);
                         d3.select("#gr_incidencia").html("<b>Incidencia</b>: " + incidencia.toFixed(1));
                     })
