@@ -54,9 +54,11 @@
         <script type="text/javascript">
             var padding_bottom = 20;
             var padding_left = 40
-            var max_inci = 1200
+            var max_inci = 1400
+            var max_inci_gr = 2200
             var w = 1000;
             var h = w / 2;
+            var h_gr = (max_inci_gr * h) / max_inci;
             var rect_w;
             var dataset;
             var poblacionChipiona = 19246;
@@ -84,7 +86,7 @@
             }
 
             var rect_h_gr = function(y) {
-                return (h - padding_bottom - padding_bottom/2) * incidenciaGranada(y) / max_inci;
+                return (h_gr - padding_bottom - padding_bottom/2) * incidenciaGranada(y) / max_inci_gr;
             }
 
             var parseTime = d3.timeParse("%d/%m/%y");
@@ -121,6 +123,10 @@
    							    .domain([0, max_inci])
    							    .range([h - padding_bottom, padding_bottom/2]);
 
+                yScale_gr = d3.scaleLinear()
+   							    .domain([0, max_inci_gr])
+   							    .range([h_gr - padding_bottom, padding_bottom/2]);
+
          				xAxis = d3.axisBottom()
          						.scale(xScale)
          						.ticks(8)
@@ -128,6 +134,10 @@
 
                 yAxis = d3.axisLeft()
   								  .scale(yScale)
+  								  .ticks(10);
+
+                yAxis_gr = d3.axisLeft()
+  								  .scale(yScale_gr)
   								  .ticks(10);
 
                 var initFecha = d3.timeFormat("%d/%m/%y")(data[data.length-1]["fecha"]);
@@ -207,7 +217,7 @@
                     .attr("y2", yScale(500));
 
                 svg.append("line")
-                    .style("stroke", "Lightgray")
+                    .style("stroke", "Gray")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
@@ -315,7 +325,7 @@
                     .attr("y2", yScale(500));
 
                 svg.append("line")
-                    .style("stroke", "Lightgray")
+                    .style("stroke", "Gray")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
@@ -364,13 +374,13 @@
 
                 var svg = d3.select("#granada")
           					.attr("width", w)
-          					.attr("height", h);
+          					.attr("height", h_gr);
 
                 svg.append("rect")
                     .attr("x", padding_left)
                     .attr("y", 0)
                     .attr("width", w - padding_left)
-                    .attr("height", h - padding_bottom)
+                    .attr("height", h_gr - padding_bottom)
                     .attr("fill", "WhiteSmoke")
 
                 svg.append("line")
@@ -379,7 +389,7 @@
                     .style("stroke-dasharray", ("8,5"))
                     .attr("x1", xScale(parseTime("01/01/21")))
                     .attr("x2", xScale(parseTime("01/01/21")))
-                    .attr("y1", h - padding_bottom)
+                    .attr("y1", h_gr - padding_bottom)
                     .attr("y2", padding_bottom/2);
 
                 svg.append("line")
@@ -387,48 +397,64 @@
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
-                    .attr("y1", yScale(25))
-                    .attr("y2", yScale(25));
+                    .attr("y1", yScale_gr(25))
+                    .attr("y2", yScale_gr(25));
 
                 svg.append("line")
                     .style("stroke", "Yellow")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
-                    .attr("y1", yScale(50))
-                    .attr("y2", yScale(50));
+                    .attr("y1", yScale_gr(50))
+                    .attr("y2", yScale_gr(50));
 
                 svg.append("line")
                     .style("stroke", "Orange")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
-                    .attr("y1", yScale(150))
-                    .attr("y2", yScale(150));
+                    .attr("y1", yScale_gr(150))
+                    .attr("y2", yScale_gr(150));
 
                 svg.append("line")
                     .style("stroke", "Red")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
-                    .attr("y1", yScale(250))
-                    .attr("y2", yScale(250));
+                    .attr("y1", yScale_gr(250))
+                    .attr("y2", yScale_gr(250));
 
                 svg.append("line")
                     .style("stroke", "Lightgray")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
-                    .attr("y1", yScale(500))
-                    .attr("y2", yScale(500));
+                    .attr("y1", yScale_gr(500))
+                    .attr("y2", yScale_gr(500));
+
+                svg.append("line")
+                    .style("stroke", "gray")
+                    .style("stroke-width", 1)
+                    .attr("x1", padding_left)
+                    .attr("x2", w)
+                    .attr("y1", yScale_gr(1000))
+                    .attr("y2", yScale_gr(1000));
 
                 svg.append("line")
                     .style("stroke", "Lightgray")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
                     .attr("x2", w)
-                    .attr("y1", yScale(1000))
-                    .attr("y2", yScale(1000));
+                    .attr("y1", yScale_gr(1500))
+                    .attr("y2", yScale_gr(1500));
+
+                svg.append("line")
+                    .style("stroke", "gray")
+                    .style("stroke-width", 1)
+                    .attr("x1", padding_left)
+                    .attr("x2", w)
+                    .attr("y1", yScale_gr(2000))
+                    .attr("y2", yScale_gr(2000));
 
                 svg.selectAll("rect")
           			    .data(dataset)
@@ -438,7 +464,7 @@
          				   		  return xScale(d.fecha) - rect_w / 2;
          				    })
           			    .attr("y", function(d) {
-          			   		  return h - (rect_h_gr(d.gr14)) - padding_bottom;
+          			   		  return h_gr - (rect_h_gr(d.gr14)) - padding_bottom;
           			    })
           			    .attr("width", rect_w)
           			    .attr("height", function(d) {
@@ -462,13 +488,13 @@
 
       	   			svg.append("g")
         	   				.attr("class", "axis")
-        	   				.attr("transform", "translate(0," + (h - padding_bottom) + ")")
+        	   				.attr("transform", "translate(0," + (h_gr - padding_bottom) + ")")
         	   				.call(xAxis);
 
       	   			svg.append("g")
         	   				.attr("class", "axis")
         	   				.attr("transform", "translate(" + padding_left + ",0)")
-        	   				.call(yAxis);
+        	   				.call(yAxis_gr);
             });
         </script>
     </body>
