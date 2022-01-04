@@ -177,6 +177,15 @@
                     .attr("y2", padding_bottom/2);
 
                 svg.append("line")
+                    .style("stroke", "Lightgray")
+                    .style("stroke-width", 1)
+                    .style("stroke-dasharray", ("8,5"))
+                    .attr("x1", xScale(parseTime("01/01/22")))
+                    .attr("x2", xScale(parseTime("01/01/22")))
+                    .attr("y1", h - padding_bottom)
+                    .attr("y2", padding_bottom/2);
+
+                svg.append("line")
                     .style("stroke", "SpringGreen")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
@@ -285,6 +294,15 @@
                     .attr("y2", padding_bottom/2);
 
                 svg.append("line")
+                    .style("stroke", "Lightgray")
+                    .style("stroke-width", 1)
+                    .style("stroke-dasharray", ("8,5"))
+                    .attr("x1", xScale(parseTime("01/01/22")))
+                    .attr("x2", xScale(parseTime("01/01/22")))
+                    .attr("y1", h - padding_bottom)
+                    .attr("y2", padding_bottom/2);
+
+                svg.append("line")
                     .style("stroke", "SpringGreen")
                     .style("stroke-width", 1)
                     .attr("x1", padding_left)
@@ -389,6 +407,15 @@
                     .style("stroke-dasharray", ("8,5"))
                     .attr("x1", xScale(parseTime("01/01/21")))
                     .attr("x2", xScale(parseTime("01/01/21")))
+                    .attr("y1", h_gr - padding_bottom)
+                    .attr("y2", padding_bottom/2);
+
+                svg.append("line")
+                    .style("stroke", "Lightgray")
+                    .style("stroke-width", 1)
+                    .style("stroke-dasharray", ("8,5"))
+                    .attr("x1", xScale(parseTime("01/01/22")))
+                    .attr("x2", xScale(parseTime("01/01/22")))
                     .attr("y1", h_gr - padding_bottom)
                     .attr("y2", padding_bottom/2);
 
